@@ -74,3 +74,67 @@ if(s[i]==s[j]){
     }
 }
 
+
+#include<bits/stdc++.h>
+#define lld long long int
+using namespace std;
+
+void updateArray(int l,int r,int *arr,int n){
+    arr[l]+=1;
+    if(r!=n)arr[r]-=1;
+    return;
+}
+
+int main(){
+    int n;
+    cin>>n;
+    int arr[n];
+    memset(arr,0,sizeof(arr));
+    int r;
+    cin>>r;
+    while(r--){
+        int l,r;
+        cin>>l>>r;
+        l-=1;
+        updateArray(l,r,arr,n);
+    }
+    int q;
+    cin>>q;
+    for(int i=1;i<n;++i)arr[i]+=arr[i-1];
+   // for(int i=0;i<n;++i)cout<<arr[i]<<" ";
+    sort(arr,arr+n);
+    while(q--){
+        int num;
+        cin>>num;
+        auto it=lower_bound(arr,arr+n,num)-arr;
+        cout<<n-it<<" ";
+
+
+    }
+}
+#include<bits/stdc++.h>
+#define lld long long int
+using namespace std;
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        string s;
+        cin>>s;
+        int n=s.size();
+        int dp[n],arr[n];
+        int cnt =0;
+        for(int i=0;i<n;++i){
+            if(s[i]=='R'){
+                arr[i]=-1;
+                ++cnt;
+            }else arr[i]=1;
+        }
+        int maxi;
+        maxi=dp[0]=arr[0];
+        for(int i=1;i<n;++i){
+            dp[i]=max(arr[i],arr[i]+dp[i-1]);
+            maxi=max(maxi,dp[i]);
+        }cout<<maxi+cnt<<endl;
+    }
+}
